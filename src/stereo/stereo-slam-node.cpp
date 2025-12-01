@@ -1,6 +1,9 @@
 #include "stereo-slam-node.hpp"
 
 #include<opencv2/core/core.hpp>
+#include<chrono>
+#include<string>
+#include<ctime>
 
 using std::placeholders::_1;
 using std::placeholders::_2;
@@ -60,8 +63,14 @@ StereoSlamNode::~StereoSlamNode()
     // Stop all threads
     m_SLAM->Shutdown();
 
-    // Save camera trajectory
-    m_SLAM->SaveKeyFrameTrajectoryTUM("KeyFrameTrajectory.txt");
+    // Save camera trajectory with timestamp
+    auto now = std::chrono::system_clock::now();
+    auto time_t_now = std::chrono::system_clock::to_time_t(now);
+    std::tm* tm_now = std::localtime(&time_t_now);
+    char buffer[64];
+    std::strftime(buffer, sizeof(buffer), "%Y-%m-%d_%H-%M-%S", tm_now);
+    std::string filename = "/root/memory_register/orb_slam_data/stereo_" + std::string(buffer) + ".txt";
+    m_SLAM->SaveKeyFrameTrajectoryTUM(filename);
 }
 
 void StereoSlamNode::GrabStereo(const ImageMsg::SharedPtr msgLeft, const ImageMsg::SharedPtr msgRight)

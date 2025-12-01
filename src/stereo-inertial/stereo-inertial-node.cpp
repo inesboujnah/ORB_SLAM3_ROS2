@@ -1,6 +1,9 @@
 #include "stereo-inertial-node.hpp"
 
 #include <opencv2/core/core.hpp>
+#include <chrono>
+#include <string>
+#include <ctime>
 
 using std::placeholders::_1;
 
@@ -73,8 +76,14 @@ StereoInertialNode::~StereoInertialNode()
     // Stop all threads
     SLAM_->Shutdown();
 
-    // Save camera trajectory
-    SLAM_->SaveKeyFrameTrajectoryTUM("KeyFrameTrajectory.txt");
+    // Save camera trajectory with timestamp
+    auto now = std::chrono::system_clock::now();
+    auto time_t_now = std::chrono::system_clock::to_time_t(now);
+    std::tm* tm_now = std::localtime(&time_t_now);
+    char buffer[64];
+    std::strftime(buffer, sizeof(buffer), "%Y-%m-%d_%H-%M-%S", tm_now);
+    std::string filename = "/root/memory_register/orb_slam_data/stereo_inertial_" + std::string(buffer) + ".txt";
+    SLAM_->SaveKeyFrameTrajectoryTUM(filename);
 }
 
 void StereoInertialNode::GrabImu(const ImuMsg::SharedPtr msg)
