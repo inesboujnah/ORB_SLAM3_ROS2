@@ -82,8 +82,21 @@ StereoInertialNode::~StereoInertialNode()
     std::tm* tm_now = std::localtime(&time_t_now);
     char buffer[64];
     std::strftime(buffer, sizeof(buffer), "%Y-%m-%d_%H-%M-%S", tm_now);
-    std::string filename = "/root/memory_register/orb_slam_data/stereo_inertial_" + std::string(buffer) + ".txt";
-    SLAM_->SaveKeyFrameTrajectoryTUM(filename);
+
+    // Save TUM keyframe and full trajectory
+    std::string kf_tum = "/root/memory_register/orb_slam_data/stereo_inertial_kf_tum_" + std::string(buffer) + ".txt";
+    SLAM_->SaveKeyFrameTrajectoryTUM(kf_tum);
+
+    std::string full_tum = "/root/memory_register/orb_slam_data/stereo_inertial_full_tum_" + std::string(buffer) + ".txt";
+    SLAM_->SaveTrajectoryTUM(full_tum);
+
+    // Save EuRoC keyframe and full trajectory
+    std::string kf_euroc = "/root/memory_register/orb_slam_data/stereo_inertial_kf_euroc_" + std::string(buffer) + ".txt";
+    SLAM_->SaveKeyFrameTrajectoryEuRoC(kf_euroc);
+
+    std::string full_euroc = "/root/memory_register/orb_slam_data/stereo_inertial_full_euroc_" + std::string(buffer) + ".txt";
+    SLAM_->SaveTrajectoryEuRoC(full_euroc);
+
 }
 
 void StereoInertialNode::GrabImu(const ImuMsg::SharedPtr msg)
