@@ -32,10 +32,10 @@ MonocularSlamNode::~MonocularSlamNode()
     std::strftime(buffer, sizeof(buffer), "%Y-%m-%d_%H-%M-%S", tm_now);
 
     // Save EuRoC keyframe and full trajectory
-    std::string kf_euroc = "/root/memory_register/orb_slam_data/trajectory/monocular_kf_euroc_" + std::string(buffer) + ".txt";
+    std::string kf_euroc = "/root/memory_register/orbslam_data/trajectory/monocular_kf_euroc_" + std::string(buffer) + ".txt";
     m_SLAM->SaveKeyFrameTrajectoryEuRoC(kf_euroc);
 
-    std::string full_euroc = "/root/memory_register/orb_slam_data/trajectory/monocular_full_euroc_" + std::string(buffer) + ".txt";
+    std::string full_euroc = "/root/memory_register/orbslam_data/trajectory/monocular_full_euroc_" + std::string(buffer) + ".txt";
     m_SLAM->SaveTrajectoryEuRoC(full_euroc);
 }
 
