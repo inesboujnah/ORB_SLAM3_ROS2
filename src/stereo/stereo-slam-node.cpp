@@ -71,17 +71,17 @@ StereoSlamNode::~StereoSlamNode()
     std::strftime(buffer, sizeof(buffer), "%Y-%m-%d_%H-%M-%S", tm_now);
 
     // Save TUM keyframe and full trajectory
-    std::string kf_tum = "~/memory_register/orbslam_data/trajectory/stereo_kf_tum_" + std::string(buffer) + ".txt";
+    std::string kf_tum = "memory_register/orbslam_data/trajectory/stereo_kf_tum_" + std::string(buffer) + ".txt";
     m_SLAM->SaveKeyFrameTrajectoryTUM(kf_tum);
 
-    std::string full_traj = "~/memory_register/orbslam_data/trajectory/stereo_full_tum_" + std::string(buffer) + ".txt";
+    std::string full_traj = "memory_register/orbslam_data/trajectory/stereo_full_tum_" + std::string(buffer) + ".txt";
     m_SLAM->SaveTrajectoryTUM(full_traj);
 
     // Save EuRoC keyframe and full trajectory
-    std::string kf_euroc = "~/memory_register/orbslam_data/trajectory/stereo_kf_euroc_" + std::string(buffer) + ".txt";
+    std::string kf_euroc = "memory_register/orbslam_data/trajectory/stereo_kf_euroc_" + std::string(buffer) + ".txt";
     m_SLAM->SaveKeyFrameTrajectoryEuRoC(kf_euroc);
 
-    std::string full_euroc = "~/memory_register/orbslam_data/trajectory/stereo_full_euroc_" + std::string(buffer) + ".txt";
+    std::string full_euroc = "memory_register/orbslam_data/trajectory/stereo_full_euroc_" + std::string(buffer) + ".txt";
     m_SLAM->SaveTrajectoryEuRoC(full_euroc);
 }
 
